@@ -24,19 +24,23 @@ else if (action === "concert-this") {
     showConert(mediaName);
 };
 
-function showConert(mediaName){
+function showConert(mediaName) {
 
     axios
-        .get("https://rest.bandsintown.com/artists/" + mediaName + "/events?app_id=codingbootcamp")
-        .then(function (concert) {
-            console.log("Concert information for " + mediaName);
-            console.log("Venue: " + concert.venue.name);
-            console.log("Location: " + concert.venue.city + ", " + concert.venue.region + ", " + concert.venue.country);
-            console.log("Date of Event: " + moment(concert.datetime).format("MM/DD/YYYY"));
-        })
-        .catch(function err() {
-            console.log(err);
-        });
+    .get("https://rest.bandsintown.com/artists/" + mediaName + "/events?app_id=codingbootcamp&date=upcoming")
+    .then(function(concert) {
+        for (let i = 0; i < concert.data.length; i++) {
+            console.log("Information For: " + mediaName)
+            console.log("Venue: "+ concert.data[i].venue.name);
+            console.log("Location: " + concert.data[i].venue.city + ", " + concert.data[i].venue.country);
+            console.log("Date: " + moment(concert.data[i].datetime).format("MM/DD/YYYY hh:00 A"));
+            console.log("----------");
+            console.log("----------");
+        }
+    })
+    .catch(function err() {
+        console.log(err);
+    });
 };
 
 function showMovie(mediaName) {
