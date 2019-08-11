@@ -39,6 +39,9 @@ else if (action === "spotify-this-song") {
 }
 else if (action === "do-what-it-says") {
     doWhat(mediaName);
+}
+else{
+    console.log("I'm sorry I didn't understand your request. Please try again.");
 };
 
 
