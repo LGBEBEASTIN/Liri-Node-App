@@ -30,18 +30,37 @@ else if (action === "concert-this") {
     }
 }
 else if (action === "spotify-this-song") {
-    if (process.argv[3] === undefined){
+    if (process.argv[3] === undefined) {
         showSong("Private Eyes")
     }
-    else{
-    showSong(mediaName);
+    else {
+        showSong(mediaName);
     }
+}
+else if (action === "do-what-it-says") {
+    doWhat(mediaName);
 };
 
 
 
+
+function doWhat() {
+    fs.readFile("random.txt", "utf8", function (err, data) {
+
+        if (err) {
+            console.log(err);
+        }
+
+        let splitText = data.split(",");
+
+        mediaName = splitText[1];
+
+        showSong(mediaName);
+    });
+};
+
 function showSong(mediaName) {
-    spotify.search({ type: "track", query: mediaName},
+    spotify.search({ type: "track", query: mediaName },
         function (err, data) {
             if (err) {
                 console.log(err);
